@@ -1,0 +1,114 @@
+[gd_scene load_steps=10 format=3 uid="uid://bhqjersieaibg"]
+
+[ext_resource type="Texture2D" uid="uid://dhrmuwpjspleg" path="res://Game/Inventory/Inventory.png" id="1_28f6x"]
+[ext_resource type="Script" path="res://Game/TextureButton.gd" id="2_ox3gb"]
+[ext_resource type="FontFile" uid="uid://cdy5sk1cpbu1u" path="res://Main Menu/Anton-Regular.ttf" id="3_0yg7x"]
+
+[sub_resource type="Theme" id="Theme_wmt1w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bh242"]
+bg_color = Color(1, 0.192157, 0.192157, 1)
+
+[sub_resource type="Animation" id="Animation_cfg1p"]
+resource_name = "Movedown"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Inventory:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(290.49, 113.84), Vector2(550.554, 215.203)]
+}
+
+[sub_resource type="Animation" id="Animation_ypnak"]
+resource_name = "Moveup"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Inventory:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(550.554, 215.203), Vector2(290.49, 113.84)]
+}
+
+[sub_resource type="Animation" id="Animation_2e4va"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Inventory:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(549.623, 214.838)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_40vwn"]
+_data = {
+"Movedown": SubResource("Animation_cfg1p"),
+"Moveup": SubResource("Animation_ypnak"),
+"RESET": SubResource("Animation_2e4va")
+}
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(-550, 376)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Inventory" type="TextureButton" parent="."]
+offset_left = 549.623
+offset_top = 214.838
+offset_right = 647.623
+offset_bottom = 272.839
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("1_28f6x")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_ox3gb")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="Inventory"]
+layout_mode = 0
+offset_left = -0.0187859
+offset_top = 57.1141
+offset_right = 1151.98
+offset_bottom = 336.114
+theme = SubResource("Theme_wmt1w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_bh242")
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" type="Button" parent="Inventory"]
+layout_mode = 0
+offset_left = 1095.98
+offset_top = 58.11
+offset_right = 1151.98
+offset_bottom = 128.11
+theme_override_colors/font_color = Color(0.964706, 0.811765, 0, 1)
+theme_override_fonts/font = ExtResource("3_0yg7x")
+theme_override_font_sizes/font_size = 40
+text = "X"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="Inventory"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_40vwn")
+}
+
+[connection signal="pressed" from="Inventory" to="Inventory" method="_on_pressed"]
+[connection signal="pressed" from="Inventory/Exit" to="Inventory" method="_on_exit_pressed"]
